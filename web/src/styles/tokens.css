@@ -1,0 +1,39 @@
+:root {
+  /* Bahi-khata: red cloth binding, haldi-tinted ledger paper, ink, string */
+  --cloth: #9b1b20;
+  --cloth-deep: #6c1116;
+  --cloth-night: #4a0b0f;
+  --cloth-line: rgba(246, 233, 201, 0.18);
+  --on-cloth: #f6e9c9;
+  --on-cloth-soft: #efcdb9;
+
+  --paper: #f6e9c9;
+  --paper-light: #fbf4e1;
+  --paper-edge: #e3cf9f;
+  --paper-shadow: rgba(74, 11, 15, 0.35);
+
+  --ink: #1f1a16;
+  --ink-soft: #4a3f35;
+  --ink-faint: #6b5a47;
+
+  --rule-red: #c2413a;
+  --rule-red-ink: #a3302a; /* margin red when it is text */
+  --rule-blue: rgba(43, 76, 133, 0.2);
+  --haldi: #e8b23a;
+  --haldi-on-cloth: #f2c867; /* haldi when it is text on cloth */
+  --haldi-deep: #c8901a;
+  --ochre-ink: #855700;
+  --leaf: #2f6b3a;
+
+  --font-display: 'Martel', 'Rozha One', Georgia, serif;
+  --font-deva: 'Rozha One', 'Martel', serif;
+  --font-ui: 'Mukta', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Kalam', 'Mukta', cursive;
+
+  /* One line of ledger ruling; type and ruled rows share it */
+  --line: 2rem;
+  --radius: 4px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-leaf: 0 1px 2px rgba(31, 26, 22, 0.12), 0 18px 40px -12px var(--paper-shadow);
+}

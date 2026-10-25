@@ -1,0 +1,556 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T12:02:20.555Z",
+  "title": "Design System: Hamari Virasat",
+  "extensions": {
+    "colorMeta": {
+      "cloth": {
+        "role": "primary",
+        "displayName": "Sindoor Cloth",
+        "canonical": "oklch(44.8% 0.163 25.3)",
+        "tonalRamp": [
+          "oklch(15% 0.080 25.3)",
+          "oklch(25% 0.110 25.3)",
+          "oklch(37% 0.146 25.3)",
+          "oklch(49% 0.163 25.3)",
+          "oklch(61% 0.163 25.3)",
+          "oklch(73% 0.146 25.3)",
+          "oklch(85% 0.110 25.3)",
+          "oklch(95% 0.080 25.3)"
+        ]
+      },
+      "cloth-deep": {
+        "role": "primary",
+        "displayName": "Cloth in Shadow",
+        "canonical": "oklch(34.7% 0.124 24.2)",
+        "tonalRamp": [
+          "oklch(15% 0.080 24.2)",
+          "oklch(25% 0.110 24.2)",
+          "oklch(37% 0.124 24.2)",
+          "oklch(49% 0.124 24.2)",
+          "oklch(61% 0.124 24.2)",
+          "oklch(73% 0.124 24.2)",
+          "oklch(85% 0.110 24.2)",
+          "oklch(95% 0.080 24.2)"
+        ]
+      },
+      "cloth-night": {
+        "role": "primary",
+        "displayName": "Cloth at Night",
+        "canonical": "oklch(27.0% 0.093 23.0)",
+        "tonalRamp": [
+          "oklch(15% 0.080 23.0)",
+          "oklch(25% 0.093 23.0)",
+          "oklch(37% 0.093 23.0)",
+          "oklch(49% 0.093 23.0)",
+          "oklch(61% 0.093 23.0)",
+          "oklch(73% 0.093 23.0)",
+          "oklch(85% 0.093 23.0)",
+          "oklch(95% 0.080 23.0)"
+        ]
+      },
+      "on-cloth": {
+        "role": "neutral",
+        "displayName": "Cloth Text",
+        "canonical": "oklch(93.6% 0.044 88.5)",
+        "tonalRamp": [
+          "oklch(15% 0.044 88.5)",
+          "oklch(25% 0.044 88.5)",
+          "oklch(37% 0.044 88.5)",
+          "oklch(49% 0.044 88.5)",
+          "oklch(61% 0.044 88.5)",
+          "oklch(73% 0.044 88.5)",
+          "oklch(85% 0.044 88.5)",
+          "oklch(95% 0.044 88.5)"
+        ]
+      },
+      "on-cloth-soft": {
+        "role": "neutral",
+        "displayName": "Soft Cloth Text",
+        "canonical": "oklch(87.2% 0.047 52.3)",
+        "tonalRamp": [
+          "oklch(15% 0.047 52.3)",
+          "oklch(25% 0.047 52.3)",
+          "oklch(37% 0.047 52.3)",
+          "oklch(49% 0.047 52.3)",
+          "oklch(61% 0.047 52.3)",
+          "oklch(73% 0.047 52.3)",
+          "oklch(85% 0.047 52.3)",
+          "oklch(95% 0.047 52.3)"
+        ]
+      },
+      "haldi": {
+        "role": "secondary",
+        "displayName": "Haldi String",
+        "canonical": "oklch(79.3% 0.144 83.2)",
+        "tonalRamp": [
+          "oklch(15% 0.080 83.2)",
+          "oklch(25% 0.110 83.2)",
+          "oklch(37% 0.144 83.2)",
+          "oklch(49% 0.144 83.2)",
+          "oklch(61% 0.144 83.2)",
+          "oklch(73% 0.144 83.2)",
+          "oklch(85% 0.110 83.2)",
+          "oklch(95% 0.080 83.2)"
+        ]
+      },
+      "haldi-deep": {
+        "role": "secondary",
+        "displayName": "Deep Haldi",
+        "canonical": "oklch(69.0% 0.137 79.4)",
+        "tonalRamp": [
+          "oklch(15% 0.080 79.4)",
+          "oklch(25% 0.110 79.4)",
+          "oklch(37% 0.137 79.4)",
+          "oklch(49% 0.137 79.4)",
+          "oklch(61% 0.137 79.4)",
+          "oklch(73% 0.137 79.4)",
+          "oklch(85% 0.110 79.4)",
+          "oklch(95% 0.080 79.4)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Ledger Paper",
+        "canonical": "oklch(93.6% 0.044 88.5)",
+        "tonalRamp": [
+          "oklch(15% 0.044 88.5)",
+          "oklch(25% 0.044 88.5)",
+          "oklch(37% 0.044 88.5)",
+          "oklch(49% 0.044 88.5)",
+          "oklch(61% 0.044 88.5)",
+          "oklch(73% 0.044 88.5)",
+          "oklch(85% 0.044 88.5)",
+          "oklch(95% 0.044 88.5)"
+        ]
+      },
+      "paper-light": {
+        "role": "neutral",
+        "displayName": "Fresh Paper",
+        "canonical": "oklch(96.8% 0.026 90.1)",
+        "tonalRamp": [
+          "oklch(15% 0.026 90.1)",
+          "oklch(25% 0.026 90.1)",
+          "oklch(37% 0.026 90.1)",
+          "oklch(49% 0.026 90.1)",
+          "oklch(61% 0.026 90.1)",
+          "oklch(73% 0.026 90.1)",
+          "oklch(85% 0.026 90.1)",
+          "oklch(95% 0.026 90.1)"
+        ]
+      },
+      "paper-edge": {
+        "role": "neutral",
+        "displayName": "Paper Edge",
+        "canonical": "oklch(85.9% 0.067 88.0)",
+        "tonalRamp": [
+          "oklch(15% 0.067 88.0)",
+          "oklch(25% 0.067 88.0)",
+          "oklch(37% 0.067 88.0)",
+          "oklch(49% 0.067 88.0)",
+          "oklch(61% 0.067 88.0)",
+          "oklch(73% 0.067 88.0)",
+          "oklch(85% 0.067 88.0)",
+          "oklch(95% 0.067 88.0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(22.2% 0.011 60.9)",
+        "tonalRamp": [
+          "oklch(15% 0.011 60.9)",
+          "oklch(25% 0.011 60.9)",
+          "oklch(37% 0.011 60.9)",
+          "oklch(49% 0.011 60.9)",
+          "oklch(61% 0.011 60.9)",
+          "oklch(73% 0.011 60.9)",
+          "oklch(85% 0.011 60.9)",
+          "oklch(95% 0.011 60.9)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "oklch(37.6% 0.022 64.3)",
+        "tonalRamp": [
+          "oklch(15% 0.022 64.3)",
+          "oklch(25% 0.022 64.3)",
+          "oklch(37% 0.022 64.3)",
+          "oklch(49% 0.022 64.3)",
+          "oklch(61% 0.022 64.3)",
+          "oklch(73% 0.022 64.3)",
+          "oklch(85% 0.022 64.3)",
+          "oklch(95% 0.022 64.3)"
+        ]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Faint Ink",
+        "canonical": "oklch(47.9% 0.037 69.9)",
+        "tonalRamp": [
+          "oklch(15% 0.037 69.9)",
+          "oklch(25% 0.037 69.9)",
+          "oklch(37% 0.037 69.9)",
+          "oklch(49% 0.037 69.9)",
+          "oklch(61% 0.037 69.9)",
+          "oklch(73% 0.037 69.9)",
+          "oklch(85% 0.037 69.9)",
+          "oklch(95% 0.037 69.9)"
+        ]
+      },
+      "rule-red": {
+        "role": "tertiary",
+        "displayName": "Margin Red",
+        "canonical": "oklch(55.7% 0.166 27.0)",
+        "tonalRamp": [
+          "oklch(15% 0.080 27.0)",
+          "oklch(25% 0.110 27.0)",
+          "oklch(37% 0.146 27.0)",
+          "oklch(49% 0.166 27.0)",
+          "oklch(61% 0.166 27.0)",
+          "oklch(73% 0.146 27.0)",
+          "oklch(85% 0.110 27.0)",
+          "oklch(95% 0.080 27.0)"
+        ]
+      },
+      "rule-blue": {
+        "role": "tertiary",
+        "displayName": "Line Blue",
+        "canonical": "rgba(43, 76, 133, 0.2)",
+        "tonalRamp": [
+          "oklch(15% 0.080 260.6)",
+          "oklch(25% 0.103 260.6)",
+          "oklch(37% 0.103 260.6)",
+          "oklch(49% 0.103 260.6)",
+          "oklch(61% 0.103 260.6)",
+          "oklch(73% 0.103 260.6)",
+          "oklch(85% 0.103 260.6)",
+          "oklch(95% 0.080 260.6)"
+        ]
+      },
+      "blue-ink": {
+        "role": "tertiary",
+        "displayName": "Blue Ink",
+        "canonical": "oklch(42.2% 0.103 260.6)",
+        "tonalRamp": [
+          "oklch(15% 0.080 260.6)",
+          "oklch(25% 0.103 260.6)",
+          "oklch(37% 0.103 260.6)",
+          "oklch(49% 0.103 260.6)",
+          "oklch(61% 0.103 260.6)",
+          "oklch(73% 0.103 260.6)",
+          "oklch(85% 0.103 260.6)",
+          "oklch(95% 0.080 260.6)"
+        ]
+      },
+      "ochre-ink": {
+        "role": "tertiary",
+        "displayName": "Ochre Ink",
+        "canonical": "oklch(49.5% 0.105 73.7)",
+        "tonalRamp": [
+          "oklch(15% 0.080 73.7)",
+          "oklch(25% 0.105 73.7)",
+          "oklch(37% 0.105 73.7)",
+          "oklch(49% 0.105 73.7)",
+          "oklch(61% 0.105 73.7)",
+          "oklch(73% 0.105 73.7)",
+          "oklch(85% 0.105 73.7)",
+          "oklch(95% 0.080 73.7)"
+        ]
+      },
+      "leaf": {
+        "role": "tertiary",
+        "displayName": "Leaf Green",
+        "canonical": "oklch(47.5% 0.100 147.7)",
+        "tonalRamp": [
+          "oklch(15% 0.080 147.7)",
+          "oklch(25% 0.100 147.7)",
+          "oklch(37% 0.100 147.7)",
+          "oklch(49% 0.100 147.7)",
+          "oklch(61% 0.100 147.7)",
+          "oklch(73% 0.100 147.7)",
+          "oklch(85% 0.100 147.7)",
+          "oklch(95% 0.080 147.7)"
+        ]
+      },
+      "danger-ink": {
+        "role": "tertiary",
+        "displayName": "Danger Ink",
+        "canonical": "oklch(46.3% 0.152 30.2)",
+        "tonalRamp": [
+          "oklch(15% 0.080 30.2)",
+          "oklch(25% 0.110 30.2)",
+          "oklch(37% 0.146 30.2)",
+          "oklch(49% 0.152 30.2)",
+          "oklch(61% 0.152 30.2)",
+          "oklch(73% 0.146 30.2)",
+          "oklch(85% 0.110 30.2)",
+          "oklch(95% 0.080 30.2)"
+        ]
+      },
+      "error-wash": {
+        "role": "tertiary",
+        "displayName": "Error Wash",
+        "canonical": "oklch(93.3% 0.028 36.9)",
+        "tonalRamp": [
+          "oklch(15% 0.028 36.9)",
+          "oklch(25% 0.028 36.9)",
+          "oklch(37% 0.028 36.9)",
+          "oklch(49% 0.028 36.9)",
+          "oklch(61% 0.028 36.9)",
+          "oklch(73% 0.028 36.9)",
+          "oklch(85% 0.028 36.9)",
+          "oklch(95% 0.028 36.9)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero H1 on the opening leaf; one per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Band headings (H2)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Panel, page and ritual titles on a leaf."
+      },
+      "entry": {
+        "displayName": "Entry",
+        "purpose": "Ritual name in each Family Space ledger row."
+      },
+      "devanagari": {
+        "displayName": "Devanagari",
+        "purpose": "Hindi name of every cultural term, beside its English."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All prose and UI text."
+      },
+      "label": {
+        "displayName": "Ledger Label",
+        "purpose": "Uppercase rule-red column headers and leaf section headings."
+      },
+      "hand": {
+        "displayName": "Hand",
+        "purpose": "Only what the family wrote: entries, told by, time bands, status words, provenance."
+      }
+    },
+    "shadows": [
+      {
+        "name": "leaf",
+        "value": "0 1px 2px rgba(31,26,22,0.12), 0 18px 40px -12px rgba(74,11,15,0.35)",
+        "purpose": "Every paper leaf on cloth."
+      },
+      {
+        "name": "fold",
+        "value": "-6px 0 10px -4px rgba(74,11,15,0.18), 6px 0 10px -4px rgba(74,11,15,0.18)",
+        "purpose": "Centre fold of a spread."
+      },
+      {
+        "name": "button-cloth",
+        "value": "0 2px 6px -2px rgba(74,11,15,0.5)",
+        "purpose": "Cloth button."
+      },
+      {
+        "name": "button-haldi",
+        "value": "0 2px 8px -2px rgba(0,0,0,0.35)",
+        "purpose": "Haldi button on cloth."
+      },
+      {
+        "name": "tab-selected",
+        "value": "4px 6px 14px -8px rgba(74,11,15,0.35)",
+        "purpose": "Selected thumb tab joining the page."
+      },
+      {
+        "name": "photograph",
+        "value": "0 24px 50px -20px rgba(74,11,15,0.55)",
+        "purpose": "The printed-book photograph."
+      },
+      {
+        "name": "focus-glow",
+        "value": "0 0 0 3px rgba(232,178,58,0.45)",
+        "purpose": "Focused input."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions and the page turn."
+      },
+      {
+        "name": "state",
+        "value": "0.2s",
+        "purpose": "Hover / colour / border changes."
+      },
+      {
+        "name": "tab-slide",
+        "value": "0.35s",
+        "purpose": "Thumb tab slide."
+      },
+      {
+        "name": "page-turn",
+        "value": "0.6s; from perspective(1600px) rotateY(-7deg) to 0, origin left",
+        "purpose": "Book page turning when an entry or tab is chosen."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation and transition durations 0.01ms; smooth scroll off",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "nav-collapse",
+        "value": "960px"
+      },
+      {
+        "name": "stack",
+        "value": "860px"
+      },
+      {
+        "name": "form-stack",
+        "value": "720px"
+      },
+      {
+        "name": "narrow-margin",
+        "value": "560px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Cloth Button",
+      "kind": "button",
+      "refersTo": "button-cloth",
+      "description": "Primary action on paper.",
+      "html": "<button class=\"ds-btn ds-btn-cloth\">Start your family book <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ":host{--cloth:#9b1b20;--cloth-deep:#6c1116;--cloth-night:#4a0b0f;--cloth-line:rgba(246,233,201,.18);--on-cloth:#f6e9c9;--on-cloth-soft:#efcdb9;--paper:#f6e9c9;--paper-light:#fbf4e1;--paper-edge:#e3cf9f;--paper-shadow:rgba(74,11,15,.35);--ink:#1f1a16;--ink-soft:#4a3f35;--ink-faint:#6b5a47;--rule-red:#c2413a;--rule-blue:rgba(43,76,133,.2);--haldi:#e8b23a;--haldi-deep:#c8901a;--ochre-ink:#855700;--leaf:#2f6b3a;--font-display:'Martel','Rozha One',Georgia,serif;--font-deva:'Rozha One','Martel',serif;--font-ui:'Mukta',system-ui,sans-serif;--font-hand:'Kalam','Mukta',cursive;--line:2rem;--radius:4px;--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-leaf:0 1px 2px rgba(31,26,22,.12),0 18px 40px -12px var(--paper-shadow);}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3rem;padding:.6rem 1.4rem;border:none;border-radius:var(--radius,4px);font-family:var(--font-ui,'Mukta',sans-serif);font-weight:700;font-size:1.05rem;line-height:1.2;cursor:pointer;transition:background-color .2s var(--ease-out),transform .2s var(--ease-out);}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid var(--haldi,#e8b23a);outline-offset:2px;}.ds-btn-cloth{background:var(--cloth,#9b1b20);color:var(--on-cloth,#f6e9c9);box-shadow:0 2px 6px -2px rgba(74,11,15,.5);}.ds-btn-cloth:hover{background:var(--cloth-deep,#6c1116);}"
+    },
+    {
+      "name": "Haldi Button",
+      "kind": "button",
+      "refersTo": "button-haldi",
+      "description": "Primary action on the cloth header.",
+      "html": "<div class=\"ds-on-cloth\"><button class=\"ds-btn ds-btn-haldi\">Open family space</button></div>",
+      "css": ":host{--cloth:#9b1b20;--cloth-deep:#6c1116;--cloth-night:#4a0b0f;--cloth-line:rgba(246,233,201,.18);--on-cloth:#f6e9c9;--on-cloth-soft:#efcdb9;--paper:#f6e9c9;--paper-light:#fbf4e1;--paper-edge:#e3cf9f;--paper-shadow:rgba(74,11,15,.35);--ink:#1f1a16;--ink-soft:#4a3f35;--ink-faint:#6b5a47;--rule-red:#c2413a;--rule-blue:rgba(43,76,133,.2);--haldi:#e8b23a;--haldi-deep:#c8901a;--ochre-ink:#855700;--leaf:#2f6b3a;--font-display:'Martel','Rozha One',Georgia,serif;--font-deva:'Rozha One','Martel',serif;--font-ui:'Mukta',system-ui,sans-serif;--font-hand:'Kalam','Mukta',cursive;--line:2rem;--radius:4px;--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-leaf:0 1px 2px rgba(31,26,22,.12),0 18px 40px -12px var(--paper-shadow);}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3rem;padding:.6rem 1.4rem;border:none;border-radius:var(--radius,4px);font-family:var(--font-ui,'Mukta',sans-serif);font-weight:700;font-size:1.05rem;line-height:1.2;cursor:pointer;transition:background-color .2s var(--ease-out),transform .2s var(--ease-out);}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid var(--haldi,#e8b23a);outline-offset:2px;}.ds-on-cloth{background:var(--cloth,#9b1b20);padding:1.25rem;}.ds-btn-haldi{background:var(--haldi,#e8b23a);color:var(--ink,#1f1a16);box-shadow:0 2px 8px -2px rgba(0,0,0,.35);}.ds-btn-haldi:hover{background:#f2c357;}.ds-btn-haldi:focus-visible{outline-color:var(--on-cloth,#f6e9c9);}"
+    },
+    {
+      "name": "Line and Quiet Buttons",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Secondary outline action and underlined tertiary action.",
+      "html": "<div class=\"ds-row\"><button class=\"ds-btn ds-btn-line\">Edit</button><button class=\"ds-btn ds-btn-quiet\">Back to rituals</button></div>",
+      "css": ":host{--cloth:#9b1b20;--cloth-deep:#6c1116;--cloth-night:#4a0b0f;--cloth-line:rgba(246,233,201,.18);--on-cloth:#f6e9c9;--on-cloth-soft:#efcdb9;--paper:#f6e9c9;--paper-light:#fbf4e1;--paper-edge:#e3cf9f;--paper-shadow:rgba(74,11,15,.35);--ink:#1f1a16;--ink-soft:#4a3f35;--ink-faint:#6b5a47;--rule-red:#c2413a;--rule-blue:rgba(43,76,133,.2);--haldi:#e8b23a;--haldi-deep:#c8901a;--ochre-ink:#855700;--leaf:#2f6b3a;--font-display:'Martel','Rozha One',Georgia,serif;--font-deva:'Rozha One','Martel',serif;--font-ui:'Mukta',system-ui,sans-serif;--font-hand:'Kalam','Mukta',cursive;--line:2rem;--radius:4px;--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-leaf:0 1px 2px rgba(31,26,22,.12),0 18px 40px -12px var(--paper-shadow);}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3rem;padding:.6rem 1.4rem;border:none;border-radius:var(--radius,4px);font-family:var(--font-ui,'Mukta',sans-serif);font-weight:700;font-size:1.05rem;line-height:1.2;cursor:pointer;transition:background-color .2s var(--ease-out),transform .2s var(--ease-out);}.ds-btn:active{transform:translateY(1px);}.ds-btn:focus-visible{outline:3px solid var(--haldi,#e8b23a);outline-offset:2px;}.ds-row{display:flex;gap:.75rem;align-items:center;background:var(--paper,#f6e9c9);padding:1.25rem;}.ds-btn-line{background:transparent;border:1.5px solid currentColor;color:var(--ink,#1f1a16);}.ds-btn-line:hover{background:rgba(31,26,22,.06);}.ds-btn-quiet{background:transparent;min-height:2.5rem;padding:.35rem .6rem;color:var(--cloth,#9b1b20);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;}.ds-btn-quiet:hover{color:var(--cloth-deep,#6c1116);text-decoration-thickness:2px;}"
+    },
+    {
+      "name": "Ledger Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "A field written on a line: open bottom, ink underline, haldi focus.",
+      "html": "<div class=\"ds-paper\"><label class=\"ds-field\"><span>Your family's name</span><input class=\"ds-input\" placeholder=\"e.g. Sharma Parivar\"></label></div>",
+      "css": ":host{--cloth:#9b1b20;--cloth-deep:#6c1116;--cloth-night:#4a0b0f;--cloth-line:rgba(246,233,201,.18);--on-cloth:#f6e9c9;--on-cloth-soft:#efcdb9;--paper:#f6e9c9;--paper-light:#fbf4e1;--paper-edge:#e3cf9f;--paper-shadow:rgba(74,11,15,.35);--ink:#1f1a16;--ink-soft:#4a3f35;--ink-faint:#6b5a47;--rule-red:#c2413a;--rule-blue:rgba(43,76,133,.2);--haldi:#e8b23a;--haldi-deep:#c8901a;--ochre-ink:#855700;--leaf:#2f6b3a;--font-display:'Martel','Rozha One',Georgia,serif;--font-deva:'Rozha One','Martel',serif;--font-ui:'Mukta',system-ui,sans-serif;--font-hand:'Kalam','Mukta',cursive;--line:2rem;--radius:4px;--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-leaf:0 1px 2px rgba(31,26,22,.12),0 18px 40px -12px var(--paper-shadow);}.ds-paper{background:var(--paper,#f6e9c9);padding:1.25rem;font-family:var(--font-ui,'Mukta',sans-serif);}.ds-field{display:grid;gap:.25rem;max-width:24rem;}.ds-field>span{font-weight:600;font-size:1rem;color:var(--ink-soft,#4a3f35);}.ds-input{font:inherit;width:100%;min-height:3rem;padding:.55rem .8rem;background:var(--paper-light,#fbf4e1);border:1.5px solid var(--paper-edge,#e3cf9f);border-bottom:2px solid var(--ink-faint,#6b5a47);border-radius:4px 4px 0 0;font-size:1.1rem;color:var(--ink,#1f1a16);transition:border-color .2s var(--ease-out),background-color .2s var(--ease-out);}.ds-input:hover{border-bottom-color:var(--ink-soft,#4a3f35);}.ds-input:focus{outline:none;background:#fffaf0;border-color:var(--haldi-deep,#c8901a);border-bottom-color:var(--cloth,#9b1b20);box-shadow:0 0 0 3px rgba(232,178,58,.45);}"
+    },
+    {
+      "name": "Status Stamps",
+      "kind": "chip",
+      "refersTo": "stamp-done",
+      "description": "Rubber-stamp status on a ledger entry.",
+      "html": "<div class=\"ds-paper\"><span class=\"ds-stamp ds-stamp-done\">Recorded</span> <span class=\"ds-stamp ds-stamp-draft\">Example</span></div>",
+      "css": ":host{--cloth:#9b1b20;--cloth-deep:#6c1116;--cloth-night:#4a0b0f;--cloth-line:rgba(246,233,201,.18);--on-cloth:#f6e9c9;--on-cloth-soft:#efcdb9;--paper:#f6e9c9;--paper-light:#fbf4e1;--paper-edge:#e3cf9f;--paper-shadow:rgba(74,11,15,.35);--ink:#1f1a16;--ink-soft:#4a3f35;--ink-faint:#6b5a47;--rule-red:#c2413a;--rule-blue:rgba(43,76,133,.2);--haldi:#e8b23a;--haldi-deep:#c8901a;--ochre-ink:#855700;--leaf:#2f6b3a;--font-display:'Martel','Rozha One',Georgia,serif;--font-deva:'Rozha One','Martel',serif;--font-ui:'Mukta',system-ui,sans-serif;--font-hand:'Kalam','Mukta',cursive;--line:2rem;--radius:4px;--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-leaf:0 1px 2px rgba(31,26,22,.12),0 18px 40px -12px var(--paper-shadow);}.ds-paper{background:var(--paper,#f6e9c9);padding:1.25rem;display:flex;gap:.75rem;}.ds-stamp{display:inline-block;padding:0 .5rem;border:1.5px solid currentColor;border-radius:3px;font-family:var(--font-ui,'Mukta',sans-serif);font-size:.8rem;font-weight:700;line-height:1.5;letter-spacing:.04em;text-transform:uppercase;}.ds-stamp-done{color:var(--leaf,#2f6b3a);}.ds-stamp-draft{color:var(--ochre-ink,#855700);}"
+    },
+    {
+      "name": "Ledger Leaf with Entries",
+      "kind": "card",
+      "refersTo": "leaf",
+      "description": "Paper leaf on cloth with the red double margin rule and ruled entry rows.",
+      "html": "<div class=\"ds-cloth\"><div class=\"ds-leaf\"><h4 class=\"ds-label\">Rituals</h4><ul class=\"ds-entries\"><li class=\"ds-entry\"><span class=\"ds-entry-title\">Diwali Lakshmi Puja</span><span class=\"ds-entry-meta\">Kartik Amavasya · 12 steps</span><span class=\"ds-stamp\">Recorded</span></li><li class=\"ds-entry\"><span class=\"ds-entry-title\">Mundan</span><span class=\"ds-entry-meta\">Samskara · 5 steps</span><span class=\"ds-stamp ds-draft\">Draft</span></li></ul></div></div>",
+      "css": ":host{--cloth:#9b1b20;--cloth-deep:#6c1116;--cloth-night:#4a0b0f;--cloth-line:rgba(246,233,201,.18);--on-cloth:#f6e9c9;--on-cloth-soft:#efcdb9;--paper:#f6e9c9;--paper-light:#fbf4e1;--paper-edge:#e3cf9f;--paper-shadow:rgba(74,11,15,.35);--ink:#1f1a16;--ink-soft:#4a3f35;--ink-faint:#6b5a47;--rule-red:#c2413a;--rule-blue:rgba(43,76,133,.2);--haldi:#e8b23a;--haldi-deep:#c8901a;--ochre-ink:#855700;--leaf:#2f6b3a;--font-display:'Martel','Rozha One',Georgia,serif;--font-deva:'Rozha One','Martel',serif;--font-ui:'Mukta',system-ui,sans-serif;--font-hand:'Kalam','Mukta',cursive;--line:2rem;--radius:4px;--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-leaf:0 1px 2px rgba(31,26,22,.12),0 18px 40px -12px var(--paper-shadow);}.ds-cloth{background:var(--cloth,#9b1b20);padding:1.5rem;}.ds-leaf{position:relative;border-radius:6px;background-color:var(--paper,#f6e9c9);background-image:linear-gradient(90deg,transparent 2.75rem,var(--rule-red) 2.75rem,var(--rule-red) calc(2.75rem + 1px),transparent calc(2.75rem + 1px),transparent calc(2.75rem + 4px),var(--rule-red) calc(2.75rem + 4px),var(--rule-red) calc(2.75rem + 5px),transparent calc(2.75rem + 5px));color:var(--ink,#1f1a16);box-shadow:var(--shadow-leaf);padding:var(--line) 1.5rem var(--line) 4.25rem;font-family:var(--font-ui,'Mukta',sans-serif);}.ds-label{margin:0;min-height:var(--line);font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rule-red,#c2413a);}.ds-entries{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--rule-red,#c2413a);}.ds-entry{display:grid;grid-template-columns:1fr auto;grid-template-areas:'t s' 'm s';align-items:center;column-gap:1rem;min-height:4rem;padding:.6rem .5rem;border-bottom:1px solid var(--rule-blue);transition:background-color .2s var(--ease-out);cursor:pointer;}.ds-entry:hover{background:rgba(232,178,58,.14);}.ds-entry-title{grid-area:t;font-family:var(--font-display);font-weight:800;font-size:1.25rem;}.ds-entry-meta{grid-area:m;color:var(--ink-faint,#6b5a47);}.ds-stamp{grid-area:s;padding:0 .5rem;border:1.5px solid currentColor;border-radius:3px;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--leaf,#2f6b3a);}.ds-draft{color:var(--ochre-ink,#855700);}"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": "site-header",
+      "description": "Sticky cloth header with diya brand, centre links and haldi call.",
+      "html": "<header class=\"ds-header\"><span class=\"ds-brand\"><svg width=\"36\" height=\"36\" viewBox=\"0 0 40 40\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"20\" r=\"19\" fill=\"#f6e9c9\" stroke=\"#e8b23a\" stroke-width=\"1.5\"/><path d=\"M20 7C21.8 11.2 24.5 14.5 24.5 17.8C24.5 20.3 22.5 22.2 20 22.2C17.5 22.2 15.5 20.3 15.5 17.8C15.5 14.5 18.2 11.2 20 7Z\" fill=\"#c8901a\"/><path d=\"M18.5 21C14 21 8.5 24 8.5 29C13 31.5 19 28 20 24.5C19.5 23 19 22 18.5 21Z\" fill=\"#9b1b20\"/><path d=\"M21.5 21C26 21 31.5 24 31.5 29C27 31.5 21 28 20 24.5C20.5 23 21 22 21.5 21Z\" fill=\"#9b1b20\"/><path d=\"M13 29.5C16 32 24 32 27 29.5\" stroke=\"#6c1116\" stroke-width=\"1.6\" stroke-linecap=\"round\" fill=\"none\"/></svg><span class=\"ds-words\"><span class=\"ds-name\">Hamari Virasat</span><span class=\"ds-deva\" lang=\"hi\">हमारी विरासत</span></span></span><nav class=\"ds-nav\"><a href=\"#\">Example</a><a href=\"#\">Privacy</a><a href=\"#\">Pricing</a></nav><a class=\"ds-cta\" href=\"#\">Open family space</a></header>",
+      "css": ":host{--cloth:#9b1b20;--cloth-deep:#6c1116;--cloth-night:#4a0b0f;--cloth-line:rgba(246,233,201,.18);--on-cloth:#f6e9c9;--on-cloth-soft:#efcdb9;--paper:#f6e9c9;--paper-light:#fbf4e1;--paper-edge:#e3cf9f;--paper-shadow:rgba(74,11,15,.35);--ink:#1f1a16;--ink-soft:#4a3f35;--ink-faint:#6b5a47;--rule-red:#c2413a;--rule-blue:rgba(43,76,133,.2);--haldi:#e8b23a;--haldi-deep:#c8901a;--ochre-ink:#855700;--leaf:#2f6b3a;--font-display:'Martel','Rozha One',Georgia,serif;--font-deva:'Rozha One','Martel',serif;--font-ui:'Mukta',system-ui,sans-serif;--font-hand:'Kalam','Mukta',cursive;--line:2rem;--radius:4px;--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-leaf:0 1px 2px rgba(31,26,22,.12),0 18px 40px -12px var(--paper-shadow);}.ds-header{display:flex;align-items:center;gap:1.5rem;min-height:4.5rem;padding:0 1.5rem;background:var(--cloth,#9b1b20);color:var(--on-cloth,#f6e9c9);border-bottom:1px solid var(--cloth-line);font-family:var(--font-ui,'Mukta',sans-serif);}.ds-brand{display:inline-flex;align-items:center;gap:.75rem;}.ds-words{display:grid;line-height:1.1;}.ds-name{font-family:var(--font-display);font-weight:800;font-size:1.15rem;}.ds-deva{font-family:var(--font-deva);font-size:.95rem;color:var(--haldi,#e8b23a);}.ds-nav{display:flex;gap:.25rem;margin-inline:auto;}.ds-nav a{padding:.5rem .85rem;font-weight:500;color:var(--on-cloth,#f6e9c9);text-decoration:none;border-radius:4px;transition:background-color .2s var(--ease-out);}.ds-nav a:hover{background:rgba(246,233,201,.1);}.ds-nav a:focus-visible,.ds-cta:focus-visible{outline:3px solid var(--haldi,#e8b23a);outline-offset:2px;}.ds-cta{display:inline-flex;align-items:center;min-height:2.5rem;padding:.35rem .9rem;border-radius:4px;background:var(--haldi,#e8b23a);color:var(--ink,#1f1a16);font-weight:700;text-decoration:none;}.ds-cta:hover{background:#f2c357;}"
+    },
+    {
+      "name": "Thumb-Index Tabs",
+      "kind": "custom",
+      "refersTo": "book-tab",
+      "description": "Signature: cloth tabs sticking out of the book page; the selected one turns paper and pulls out.",
+      "html": "<div class=\"ds-wrap\"><div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\"><span class=\"ds-d\" lang=\"hi\">दीपावली</span><span>Diwali</span></button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\"><span class=\"ds-d\" lang=\"hi\">करवा चौथ</span><span>Karva Chauth</span></button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\"><span class=\"ds-d\" lang=\"hi\">मुंडन</span><span>Mundan</span></button></div></div>",
+      "css": ":host{--cloth:#9b1b20;--cloth-deep:#6c1116;--cloth-night:#4a0b0f;--cloth-line:rgba(246,233,201,.18);--on-cloth:#f6e9c9;--on-cloth-soft:#efcdb9;--paper:#f6e9c9;--paper-light:#fbf4e1;--paper-edge:#e3cf9f;--paper-shadow:rgba(74,11,15,.35);--ink:#1f1a16;--ink-soft:#4a3f35;--ink-faint:#6b5a47;--rule-red:#c2413a;--rule-blue:rgba(43,76,133,.2);--haldi:#e8b23a;--haldi-deep:#c8901a;--ochre-ink:#855700;--leaf:#2f6b3a;--font-display:'Martel','Rozha One',Georgia,serif;--font-deva:'Rozha One','Martel',serif;--font-ui:'Mukta',system-ui,sans-serif;--font-hand:'Kalam','Mukta',cursive;--line:2rem;--radius:4px;--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-leaf:0 1px 2px rgba(31,26,22,.12),0 18px 40px -12px var(--paper-shadow);}.ds-wrap{background:var(--paper-light,#fbf4e1);padding:1.5rem 1.5rem 1.5rem 0;}.ds-tabs{display:grid;gap:.4rem;width:13rem;font-family:var(--font-ui,'Mukta',sans-serif);}.ds-tab{display:grid;text-align:left;border:none;cursor:pointer;font:inherit;padding:.7rem 1rem .7rem 1.1rem;background:var(--cloth,#9b1b20);color:var(--on-cloth,#f6e9c9);border-radius:0 6px 6px 0;line-height:1.25;transform:translateX(-.4rem);transition:transform .35s var(--ease-out),background-color .2s var(--ease-out);}.ds-d{font-family:var(--font-deva);font-size:1.1rem;color:var(--haldi,#e8b23a);}.ds-tab:hover{transform:translateX(0);}.ds-tab:focus-visible{outline:3px solid var(--haldi,#e8b23a);outline-offset:2px;}.ds-tab[aria-selected='true']{background:var(--paper,#f6e9c9);color:var(--ink,#1f1a16);transform:translateX(-.75rem);box-shadow:4px 6px 14px -8px var(--paper-shadow);}.ds-tab[aria-selected='true'] .ds-d{color:var(--cloth,#9b1b20);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Family Bahi-Khata",
+    "overview": "The whole product is the household's red cloth ledger, the one already opened and blessed at Diwali. Sindoor-red cloth is the ground of every screen, public site and Family Space alike; content sits on haldi-tinted paper leaves laid on that cloth. Leaves carry a red double margin rule down their left side, rows are ruled in faint blue, headings are set heavy in ink and red, and anything the family \"wrote\" (ritual names in an entry, who told it, when a step happens) is in handwriting. Haldi yellow is the one bright note, the string that ties the ledger shut.\n\nThe density is that of a ledger, not a brochure: one idea per region, tabular rows sharing a single ruling unit (2rem), big readable type for elders, and Devanagari set beside English as an equal, never as decoration. The public site opens on an open spread; the Family Space and operator console are the same ledger \"in working order,\" with the cloth darkening to its night shade in the app bar.\n\nThe world explicitly refuses the old cream, maroon and gold heritage landing: no photo-beside-headline hero, no rows of feature cards, no glass, no decorative gradients, no icon tiles.",
+    "keyCharacteristics": [
+      "Red cloth ground everywhere; paper leaves are the only content surface.",
+      "Red double margin rule and blue row rules are structure, drawn by the rows themselves.",
+      "Four type voices with fixed jobs: Martel (Latin display), Rozha One (Devanagari display), Mukta (everything working), Kalam (only what the family wrote).",
+      "Haldi is the single accent, reserved for the primary call on cloth, focus, selection and Devanagari on cloth.",
+      "Status is a rubber stamp, not a pill or a badge.",
+      "One ruling unit (2rem) sets row heights, label line-heights and section gaps inside leaves."
+    ],
+    "rules": [
+      {
+        "name": "The Cloth Ground Rule",
+        "body": "Every page's body background is cloth. Paper is laid on cloth as a leaf or a band; paper is never the page itself with red as a trim.",
+        "section": "colors"
+      },
+      {
+        "name": "The One String Rule",
+        "body": "Haldi is the only bright accent. It marks the one primary action on a surface, focus, selection and Devanagari on cloth. It never fills a band, a card or a heading on paper.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink Has Meaning Rule",
+        "body": "Blue ink means someone told it, ochre means still being written, green means recorded, red means ruling or structure. Do not use these inks decoratively.",
+        "section": "colors"
+      },
+      {
+        "name": "The Written-In Rule",
+        "body": "Kalam appears only for what a family member would have written by hand: entry names in the example index, told by, time-of-day bands, status words, provenance. Never for headings, buttons, labels or prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Scripts Rule",
+        "body": "Devanagari is set in Rozha One with zero tracking, beside its English, never transliterated in its place and never as faint ornament. Uppercase and tracking apply to Latin only (`text-transform: none` on Devanagari inside labels).",
+        "section": "typography"
+      },
+      {
+        "name": "The Elder Floor Rule",
+        "body": "Body text is never below 1.125rem; secondary text not below about 0.95rem; only stamps and column labels go smaller (0.8 to 0.85rem), and they are always bold.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper-On-Cloth Rule",
+        "body": "The only elevated surface is a paper leaf. Nothing floats above a leaf except a selected tab joining it.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do put every surface on the cloth ground and every piece of content on a paper leaf or paper band.",
+      "Do rule lists and tables with a red top rule and blue row rules; size rows in multiples of the 2rem line.",
+      "Do set every cultural term in Devanagari (Rozha One) beside its English.",
+      "Do keep haldi to the one primary action on cloth, focus, selection and Devanagari on cloth.",
+      "Do show status as a stamp, and label all sample-family content with the Example stamp.",
+      "Do keep targets at 2.75 to 3rem and body text at 1.125rem or larger for elders."
+    ],
+    "donts": [
+      "Don't return to the cream, maroon and gold heritage landing: no photo-beside-headline hero, no rows of feature cards.",
+      "Don't use glass, blur, or colour gradients; gradient syntax is allowed only to draw hard-stop ruling.",
+      "Don't put icons in tinted tiles or circles; icons sit bare, in cloth or leaf colour, beside their text.",
+      "Don't use Kalam for anything the family did not write.",
+      "Don't add a second accent colour or use the ledger inks (blue, ochre, green, red) as decoration.",
+      "Don't float cards above leaves or stack shadows; the leaf is the only elevated surface."
+    ]
+  }
+}

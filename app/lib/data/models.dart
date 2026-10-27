@@ -56,7 +56,29 @@ class AppUser {
       );
 }
 
-/// A family. No tree: just a name, its identity details and a flat member list.
+/// The family's subscription. It caps how many members the family list can hold.
+enum Plan { basic, pro, premium }
+
+Plan planFromString(String? s) {
+  switch (s) {
+    case 'pro':
+      return Plan.pro;
+    case 'premium':
+      return Plan.premium;
+    default:
+      return Plan.basic;
+  }
+}
+
+extension PlanInfo on Plan {
+  String get label => switch (this) { Plan.basic => 'Basic', Plan.pro => 'Pro', Plan.premium => 'Premium' };
+
+  /// Members the family list can hold on this plan.
+  int get memberLimit => switch (this) { Plan.basic => 2, Plan.pro => 4, Plan.premium => 8 };
+}
+
+/// A family. Not a tree: just a name, its identity details and a flat member list,
+/// like a club with no relationships or hierarchy.
 class Family {
   final String id;
   final String name;
@@ -64,6 +86,7 @@ class Family {
   final String kuldevi;
   final String kuldevta;
   final String inviteCode; // members join with this
+  final Plan plan; // set by the platform, never by the family
 
   const Family({
     required this.id,
@@ -72,6 +95,7 @@ class Family {
     this.kuldevi = '',
     this.kuldevta = '',
     this.inviteCode = '',
+    this.plan = Plan.basic,
   });
 
   Family copyWith({String? name, String? gotra, String? kuldevi, String? kuldevta}) => Family(
@@ -81,6 +105,7 @@ class Family {
         kuldevi: kuldevi ?? this.kuldevi,
         kuldevta: kuldevta ?? this.kuldevta,
         inviteCode: inviteCode,
+        plan: plan,
       );
 
   Map<String, dynamic> toJson() => {
@@ -90,6 +115,7 @@ class Family {
         'kuldevi': kuldevi,
         'kuldevta': kuldevta,
         'invite_code': inviteCode,
+        'plan': plan.name,
       };
 
   factory Family.fromJson(Map<String, dynamic> j) => Family(
@@ -99,6 +125,7 @@ class Family {
         kuldevi: (j['kuldevi'] ?? '') as String,
         kuldevta: (j['kuldevta'] ?? '') as String,
         inviteCode: (j['invite_code'] ?? '') as String,
+        plan: planFromString(j['plan'] as String?),
       );
 }
 
@@ -135,7 +162,7 @@ class FamilyMember {
   final String id;
   final String familyId;
   final String name;
-  final String relation; // free text, e.g. "Dadi", "Mama"
+  final String relation; // no longer asked for: members are listed by name only
   final String phone;
 
   const FamilyMember({

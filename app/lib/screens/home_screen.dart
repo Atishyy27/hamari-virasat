@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/models.dart';
 import '../theme.dart';
 import 'add_memory_screen.dart';
+import 'app_drawer.dart';
 import 'book_screen.dart';
 import 'family_screen.dart';
 import 'home_tab.dart';
@@ -54,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return Scaffold(
       backgroundColor: kCream,
+      drawer: AppDrawer(user: widget.user),
       body: SafeArea(
         bottom: false,
         child: KeyedSubtree(key: ValueKey('tab-$_index-$_version'), child: tab),
@@ -79,7 +81,7 @@ class _BottomBar extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: SizedBox(
-          height: 76,
+          height: 80,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

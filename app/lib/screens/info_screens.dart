@@ -9,9 +9,10 @@ import 'site_ui.dart';
 import 'ui.dart';
 
 /// Hamari Virasat: everything the website says about the service, plus ways to reach the team.
+/// Open before sign in too ([user] null): then the catalogue is left out and "Write to us" is an email.
 class InfoHubScreen extends StatelessWidget {
-  final AppUser user;
-  const InfoHubScreen({super.key, required this.user});
+  final AppUser? user;
+  const InfoHubScreen({super.key, this.user});
 
   void _push(BuildContext context, Widget page) =>
       Navigator.push(context, MaterialPageRoute(builder: (_) => page));
@@ -40,12 +41,14 @@ class InfoHubScreen extends StatelessWidget {
                           'Leave a lasting footprint for the generations to come.',
                           style: body(13.5, color: Colors.white.withValues(alpha: 0.92)),
                         ),
-                        const SizedBox(height: 14),
-                        FilledButton(
-                          onPressed: () => _push(context, CatalogueScreen(user: user)),
-                          style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: kMaroon),
-                          child: const Text("Preserve my family's rituals"),
-                        ),
+                        if (user case final user?) ...[
+                          const SizedBox(height: 14),
+                          FilledButton(
+                            onPressed: () => _push(context, CatalogueScreen(user: user)),
+                            style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: kMaroon),
+                            child: const Text('Browse rituals & festivals'),
+                          ),
+                        ],
                       ],
                     ),
                   ),
@@ -109,7 +112,17 @@ class InfoHubScreen extends StatelessWidget {
                           icon: Icons.mail_outline,
                           title: 'Write to us',
                           detail: 'We reply within one business day',
-                          onTap: () => _push(context, ContactScreen(user: user)),
+                          onTap: () => switch (user) {
+                            final user? => _push(context, ContactScreen(user: user)),
+                            null => openLink(context, kSupportMailUrl),
+                          },
+                        ),
+                        const Divider(height: 1, color: kLine),
+                        LinkRow(
+                          icon: Icons.alternate_email,
+                          title: 'Mail us',
+                          detail: kSupportEmail,
+                          onTap: () => openLink(context, kSupportMailUrl),
                         ),
                         const Divider(height: 1, color: kLine),
                         LinkRow(
@@ -373,8 +386,8 @@ class HowItWorksScreen extends StatelessWidget {
 }
 
 class PricingScreen extends StatelessWidget {
-  final AppUser user;
-  const PricingScreen({super.key, required this.user});
+  final AppUser? user;
+  const PricingScreen({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -426,16 +439,17 @@ class PricingScreen extends StatelessWidget {
             style: body(12.5, color: kMuted).copyWith(height: 1.45),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
-          child: FilledButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => CatalogueScreen(user: user)),
+        if (user case final user?)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+            child: FilledButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => CatalogueScreen(user: user)),
+              ),
+              child: const Text('Browse rituals & festivals'),
             ),
-            child: const Text('Choose your rituals'),
           ),
-        ),
       ],
     );
   }

@@ -205,6 +205,13 @@ class LocalRepository implements Repository {
     final row = {...member.toJson(), 'family_id': u.familyId};
     final members = _rows('members');
     final i = members.indexWhere((m) => m['id'] == member.id && m['family_id'] == u.familyId);
+    if (i < 0) {
+      final family = _rows('families').where((f) => f['id'] == u.familyId).map(Family.fromJson).firstOrNull;
+      final limit = (family?.plan ?? Plan.basic).memberLimit;
+      if (members.where((m) => m['family_id'] == u.familyId).length >= limit) {
+        throw StateError('Your plan allows up to $limit members');
+      }
+    }
     if (i >= 0) {
       members[i] = row;
     } else {
@@ -487,16 +494,17 @@ class LocalRepository implements Repository {
             kuldevi: 'Vindhyavasini Mata',
             kuldevta: 'Baba Vishwanath',
             inviteCode: 'MISHRA',
+            plan: Plan.pro,
           ).toJson(),
           'active': true,
           'created_at': now.toIso8601String(),
         },
       ],
       'members': [
-        const FamilyMember(id: 'm1', familyId: fam, name: 'Ramesh Mishra', relation: 'Pita').toJson(),
-        const FamilyMember(id: 'm2', familyId: fam, name: 'Sushila Mishra', relation: 'Dadi').toJson(),
-        const FamilyMember(id: 'm3', familyId: fam, name: 'Anita Mishra', relation: 'Mata').toJson(),
-        const FamilyMember(id: 'm4', familyId: fam, name: 'Suresh Tiwari', relation: 'Mama').toJson(),
+        const FamilyMember(id: 'm1', familyId: fam, name: 'Ramesh Mishra').toJson(),
+        const FamilyMember(id: 'm2', familyId: fam, name: 'Sushila Mishra').toJson(),
+        const FamilyMember(id: 'm3', familyId: fam, name: 'Anita Mishra').toJson(),
+        const FamilyMember(id: 'm4', familyId: fam, name: 'Suresh Tiwari').toJson(),
       ],
       'categories': [
         cat('c1', 'Child Birth (Sanskara)'),

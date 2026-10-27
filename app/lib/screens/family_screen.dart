@@ -7,7 +7,8 @@ import '../theme.dart';
 import 'ui.dart';
 
 /// "Our Family": the family name, its identity details and its members as plain cards.
-/// There is no family tree: the client asked for the name and the members only.
+/// There is no family tree and no relationships: a member is just a name, like a club.
+/// How many members fit depends on the family's plan.
 class FamilyScreen extends StatefulWidget {
   final AppUser user;
   final VoidCallback? onFamilyChanged;
@@ -24,6 +25,8 @@ class _FamilyScreenState extends State<FamilyScreen> {
   bool _loading = true;
 
   bool get _isAdmin => widget.user.role == Role.familyAdmin;
+  Plan get _plan => _family?.plan ?? Plan.basic;
+  bool get _full => _members.length >= _plan.memberLimit;
 
   @override
   void initState() {
@@ -96,8 +99,11 @@ class _FamilyScreenState extends State<FamilyScreen> {
   Future<void> _editMember([FamilyMember? existing]) async {
     final familyId = _family?.id ?? widget.user.familyId;
     if (familyId == null) return;
+    if (existing == null && _full) {
+      showError(context, 'Your ${_plan.label} plan allows up to ${_plan.memberLimit} members');
+      return;
+    }
     final name = TextEditingController(text: existing?.name ?? '');
-    final relation = TextEditingController(text: existing?.relation ?? '');
     final phone = TextEditingController(text: existing?.phone ?? '');
     final save = await showDialog<bool>(
       context: context,
@@ -108,7 +114,6 @@ class _FamilyScreenState extends State<FamilyScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               _dialogField(name, 'Name', autofocus: existing == null),
-              _dialogField(relation, 'Relation', hint: 'e.g. Dadi, Mama'),
               _dialogField(phone, 'Phone (optional)', keyboard: TextInputType.phone, last: true),
             ],
           ),
@@ -128,7 +133,7 @@ class _FamilyScreenState extends State<FamilyScreen> {
       id: existing?.id ?? newId(),
       familyId: familyId,
       name: name.text.trim(),
-      relation: relation.text.trim(),
+      relation: existing?.relation ?? '',
       phone: phone.text.trim(),
     );
     final ok = await guardOk(context, () => repo.saveMember(member));
@@ -293,7 +298,10 @@ class _FamilyScreenState extends State<FamilyScreen> {
             child: Row(
               children: [
                 Expanded(child: Text('Members', style: display(22))),
-                Text(plural(_members.length, 'member', 'members'), style: body(13, color: kMuted)),
+                Text(
+                  '${_members.length} of ${_plan.memberLimit} · ${_plan.label} plan',
+                  style: body(13, color: kMuted),
+                ),
               ],
             ),
           ),
@@ -309,7 +317,7 @@ class _FamilyScreenState extends State<FamilyScreen> {
             const EmptyState(
               icon: Icons.people_outline,
               title: 'No members yet',
-              line: 'Add parents, grandparents, brothers and sisters so the whole family is here.',
+              line: 'Add the people who share your family story, by name.',
             )
           else
             Padding(
@@ -335,13 +343,23 @@ class _FamilyScreenState extends State<FamilyScreen> {
                 },
               ),
             ),
-          if (_isAdmin)
+          if (_isAdmin && !_full)
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
               child: OutlinedButton.icon(
                 onPressed: () => _editMember(),
                 icon: const Icon(Icons.add),
                 label: const Text('Add Family Member'),
+              ),
+            ),
+          if (_isAdmin && _full)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+              child: Text(
+                'Your ${_plan.label} plan holds up to ${_plan.memberLimit} members. '
+                'Basic allows 2, Pro 4 and Premium 8. Write to us or WhatsApp us to upgrade.',
+                textAlign: TextAlign.center,
+                style: body(13, color: kMuted).copyWith(height: 1.45),
               ),
             ),
         ],
@@ -372,14 +390,10 @@ class _FamilyScreenState extends State<FamilyScreen> {
             overflow: TextOverflow.ellipsis,
             style: body(14.5, weight: 600),
           ),
-          const SizedBox(height: 4),
-          Text(
-            you ? 'You' : (m.relation.isEmpty ? 'Family' : m.relation),
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: body(12.5, color: kMuted),
-          ),
+          if (you) ...[
+            const SizedBox(height: 4),
+            Text('You', textAlign: TextAlign.center, style: body(12.5, color: kMuted)),
+          ],
         ],
       ),
     );

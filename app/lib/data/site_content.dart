@@ -9,6 +9,9 @@ const kPrivacyUrl = '$kSiteUrl/privacy';
 const kTermsUrl = '$kSiteUrl/terms';
 const kRefundUrl = '$kSiteUrl/refund-policy';
 const kWhatsAppUrl = 'https://wa.me/919238820685';
+// TODO(client): confirm the support inbox before release; the website does not list one.
+const kSupportEmail = 'hello@hamarivirasat.in';
+const kSupportMailUrl = 'mailto:$kSupportEmail?subject=Hamari%20Virasat%20app';
 const kCalendlyUrl = 'https://calendly.com/hamarivirasat712';
 const kInstagramUrl = 'https://www.instagram.com/hamari.virasat';
 const kFacebookUrl = 'https://www.facebook.com/share/1FWMe46RYn/';
@@ -26,7 +29,7 @@ class SubSection {
 
 class RitualTemplate {
   final String key;
-  final String stage; // Pre-birth, Post-birth, Initiation, Festival, Custom · DIY
+  final String stage; // Pre-birth, Post-birth, Initiation, Wedding, Last rites, Festival, Custom · DIY
   final String title;
   final String description;
   final List<String> subSectionNames; // as shown on the website
@@ -118,6 +121,66 @@ const List<RitualTemplate> kCatalogue = [
       "Guru's Instructions",
       'Special Foods',
       'Ritual Steps',
+    ],
+  ),
+  RitualTemplate(
+    key: 'boy_wedding',
+    stage: 'Wedding',
+    title: "Boy's Wedding (Var Paksha)",
+    description:
+        "The full set of groom-side ceremonies — Tilak, Baarat, Jaimala, and the post-wedding rituals specific to the groom's family.",
+    subSectionNames: [
+      'Ancestral Profile',
+      'Samagri & Offerings',
+      'Tilak & Shagun',
+      'Haldi',
+      'Baarat Prasthan',
+      'Jaimala & Pheras',
+      'Griha Pravesh',
+      'Special Foods',
+      'Relative Roles',
+      'Wedding Songs (Geet)',
+      'Family Photos',
+      'Additional Information',
+    ],
+  ),
+  RitualTemplate(
+    key: 'girl_wedding',
+    stage: 'Wedding',
+    title: "Girl's Wedding (Kanya Paksha)",
+    description:
+        "The bride-side ceremonies — Mehendi, Haldi, Sangeet, and the deeply emotional rituals that mark a daughter's departure.",
+    subSectionNames: [
+      'Ancestral Profile',
+      'Samagri & Offerings',
+      'Mehendi',
+      'Haldi',
+      'Sangeet',
+      'Kanyadaan & Pheras',
+      'Vidaai',
+      'Special Foods',
+      'Relative Roles',
+      'Wedding Songs (Geet)',
+      'Family Photos',
+      'Additional Information',
+    ],
+  ),
+  RitualTemplate(
+    key: 'last_rituals',
+    stage: 'Last rites',
+    title: 'Family Last Rituals (Antim Sanskar)',
+    description:
+        'The Antim Sanskar, the Dasah, the Terahvin — end-of-life ceremonies that carry profound meaning and deserve the most careful documentation.',
+    subSectionNames: [
+      'Ancestral Profile',
+      'Samagri & Offerings',
+      'Ritual Steps',
+      'Dasah',
+      'Terahvin',
+      'Relative Roles',
+      'Special Foods',
+      'Prayers & Bhajans',
+      'Additional Information',
     ],
   ),
   RitualTemplate(
@@ -276,7 +339,14 @@ RitualTemplate? templateFor(String key) {
 }
 
 /// Catalogue stages in the order the website lists them.
-const kStages = ['Pre-birth', 'Post-birth', 'Initiation', 'Festival', 'Custom · DIY'];
+const kStages = ['Pre-birth', 'Post-birth', 'Initiation', 'Wedding', 'Last rites', 'Festival', 'Custom · DIY'];
+
+const kFestivalStage = 'Festival';
+
+/// Whether a family's ritual is a festival: started from a festival in the catalogue,
+/// or filed under a festival category.
+bool isFestival(String category, String templateKey) =>
+    templateFor(templateKey)?.stage == kFestivalStage || category.toLowerCase().contains('festival');
 
 class ComingSoon {
   final String key;
@@ -286,26 +356,9 @@ class ComingSoon {
   const ComingSoon(this.key, this.stage, this.title, this.description);
 }
 
-const List<ComingSoon> kComingSoon = [
-  ComingSoon(
-    'boy_wedding',
-    'Wedding (Groom)',
-    "Boy's Wedding",
-    "The full set of groom-side ceremonies — Tilak, Baarat, Jaimala, and the post-wedding rituals specific to the groom's family.",
-  ),
-  ComingSoon(
-    'girl_wedding',
-    'Wedding (Bride)',
-    "Girl's Wedding",
-    "The bride-side ceremonies — Mehendi, Haldi, Sangeet, and the deeply emotional rituals that mark a daughter's departure.",
-  ),
-  ComingSoon(
-    'last_rituals',
-    'Ancestral',
-    'Family Last Rituals',
-    'The Antim Sanskar, the Dasah, the Terahvin — end-of-life ceremonies that carry profound meaning and deserve the most careful documentation.',
-  ),
-];
+// Weddings and the last rituals moved into the catalogue in the 16 Oct review.
+// New upcoming rituals go here and show under "Coming soon".
+const List<ComingSoon> kComingSoon = [];
 
 const kHowToStart = [
   'Select the rituals you want to be documented (₹299 each)',

@@ -84,14 +84,11 @@ def main():
         "demo@example.com", "Ramesh Mishra", "Mishra Parivar",
         {"gotra": "Kashyap", "kuldevi": "Vindhyavasini Mata", "kuldevta": "Baba Vishwanath"})
 
-    members = [("Ramesh Mishra", "Pita"), ("Sushila Mishra", "Dadi"), ("Anita Mishra", "Mata"),
-               ("Suresh Tiwari", "Mama"), ("Kavita Mishra", "Bua"), ("Hariprasad Mishra", "Dada ji"),
-               ("Ananya Mishra", "Beti"), ("Arjun Mishra", "Beta"), ("Sunita Tiwari", "Mami"),
-               ("Mahesh Mishra", "Chacha"), ("Rekha Mishra", "Chachi"), ("Pooja Dubey", "Behen"),
-               ("Vikas Dubey", "Jija ji"), ("Kamla Devi", "Nani")]
+    # Members are listed by name only, and a family on the Basic plan holds two (004_plans.sql).
+    members = ["Sushila Mishra", "Anita Mishra"]
     upsert(tok, "family_members",
-           [{"id": f"demo_m{i}", "family_id": fid, "name": n, "relation": r, "phone": ""}
-            for i, (n, r) in enumerate(members)])
+           [{"id": f"demo_m{i}", "family_id": fid, "name": n, "phone": ""}
+            for i, n in enumerate(members)])
 
     R = []
     R.append(ritual("demo_r1", fid, "Chatti / Shashti Puja", "Child Birth (Sanskara)", "Chatti / Shashti Puja",
@@ -221,8 +218,8 @@ def main():
     ]:
         t, u, f2, _ = family_admin(email, name, fam, det)
         key = fam.split()[0].lower()
-        upsert(t, "family_members", [{"id": f"{key}_m{i}", "family_id": f2, "name": n, "relation": r, "phone": ""}
-                                     for i, (n, r) in enumerate([(name, "Pita"), ("Meera " + fam.split()[0], "Mata"), ("Arjun " + fam.split()[0], "Beta")])])
+        upsert(t, "family_members", [{"id": f"{key}_m{i}", "family_id": f2, "name": n, "phone": ""}
+                                     for i, n in enumerate(["Meera " + fam.split()[0], "Arjun " + fam.split()[0]])])
         r, rec = ritual(f"{key}_r1", f2, "Griha Pravesh", "Festival", "", ["Kalash", "Aam ke patte", "Havan samagri"],
                         ["Dwar puja", "Kalash sthapana", "Havan", "Doodh ubaalna"], ["Grihini: kalash lekar pehle pravesh karti hain"], [])
         upsert(t, "rituals", [r])

@@ -9,9 +9,11 @@ import 'site_ui.dart';
 import 'ui.dart';
 
 /// Riti Riwaj: the website's catalogue of rituals. Pick one or many, then pay.
+/// [festivals] narrows it: true shows festivals only, false rituals only, null both.
 class CatalogueScreen extends StatefulWidget {
   final AppUser user;
-  const CatalogueScreen({super.key, required this.user});
+  final bool? festivals;
+  const CatalogueScreen({super.key, required this.user, this.festivals});
 
   @override
   State<CatalogueScreen> createState() => _CatalogueScreenState();
@@ -62,6 +64,17 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
     if (paid == true && mounted) Navigator.pop(context);
   }
 
+  List<String> get _stages => [
+        for (final stage in kStages)
+          if (widget.festivals == null || (stage == kFestivalStage) == widget.festivals) stage,
+      ];
+
+  String get _title => switch (widget.festivals) {
+        true => 'Festivals',
+        false => 'Rituals',
+        null => 'Rituals & Festivals',
+      };
+
   @override
   Widget build(BuildContext context) {
     final total = _selected.length * kPricePerRitual;
@@ -90,7 +103,7 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            const ScreenHeader(title: 'Riti Riwaj', back: true),
+            ScreenHeader(title: _title, back: true),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.only(top: 12, bottom: 28),
@@ -140,37 +153,40 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                       ],
                     ),
                   ),
-                  for (final stage in kStages) ...[
+                  for (final stage in _stages) ...[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 20, 24, 4),
                       child: Text(stage.toUpperCase(), style: eyebrow()),
                     ),
                     for (final t in kCatalogue.where((t) => t.stage == stage)) _ritualCard(t),
                   ],
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 30, 24, 2),
-                    child: Text('COMING SOON', style: eyebrow()),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 4, 24, 4),
-                    child: Text('More rituals are on their way', style: display(22)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
-                    child: Text(
-                      'Join the waitlist for any upcoming ritual and be the first to know when it launches — at a reserved early-access price.',
-                      style: body(13.5, color: kMuted).copyWith(height: 1.45),
+                  if (kComingSoon.isNotEmpty && widget.festivals != true) ...[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 30, 24, 2),
+                      child: Text('COMING SOON', style: eyebrow()),
                     ),
-                  ),
-                  for (final item in kComingSoon) _comingSoonCard(item),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
-                    child: Text(
-                      'Have a ritual not on this list? Choose "DIY: Custom Family Ritual" and we will document it too.',
-                      textAlign: TextAlign.center,
-                      style: body(13, color: kMuted).copyWith(height: 1.45),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 4, 24, 4),
+                      child: Text('More rituals are on their way', style: display(22)),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+                      child: Text(
+                        'Join the waitlist for any upcoming ritual and be the first to know when it launches — at a reserved early-access price.',
+                        style: body(13.5, color: kMuted).copyWith(height: 1.45),
+                      ),
+                    ),
+                    for (final item in kComingSoon) _comingSoonCard(item),
+                  ],
+                  if (widget.festivals != true)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+                      child: Text(
+                        'Have a ritual not on this list? Choose "DIY: Custom Family Ritual" and we will document it too.',
+                        textAlign: TextAlign.center,
+                        style: body(13, color: kMuted).copyWith(height: 1.45),
+                      ),
+                    ),
                 ],
               ),
             ),

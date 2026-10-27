@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../data/local_repository.dart';
+import '../data/models.dart';
 import '../data/repository.dart';
 import '../theme.dart';
+import 'app_drawer.dart';
 import 'ui.dart';
 
 /// DEMO STAND-IN, to be replaced by real OTP verification with an SMS provider.
@@ -16,8 +17,13 @@ import 'ui.dart';
 
 enum _Stage { phone, setup, email }
 
-/// Auth entry, laid out as the Figma OTP screen. Signing in with a number that has no
-/// account yet leads to one extra "Set up your family" step.
+/// Auth entry, laid out as the Figma OTP screen, with a single Login button. The person
+/// says whether they log in as a Family Admin (the one who paid) or a Family Member
+/// (invited by an admin). Signing in with a number that has no account yet leads to one
+/// extra "Set up your family" step, shaped by that choice.
+/// Super admins have no button here: they sign in with email, reached by long-pressing
+/// the emblem.
+
 /// Password shared by the three seeded demo accounts.
 const kDemoPassword = 'Virasat@2026';
 
@@ -41,9 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
 
   _Stage _stage = _Stage.phone;
-  bool _newFamily = true;
+  bool _asAdmin = true; // Login as Family Admin, or as Family Member
   bool _busy = false;
-  String? _demoEmail; // demo account being signed in to, for its spinner
   bool _showPassword = false;
   Timer? _timer;
   int _resendIn = 0;
@@ -95,8 +100,15 @@ class _LoginScreenState extends State<LoginScreen> {
     final creds = demoCredentialsForPhone(_digits);
     setState(() => _busy = true);
     try {
-      await repo.signIn(email: creds.email, password: creds.password);
-      if (mounted) widget.onSignedIn();
+      final user = await repo.signIn(email: creds.email, password: creds.password);
+      if (!mounted) return;
+      // One account belongs to one family, so the account decides the role. Say so if
+      // it differs from the choice made on this page.
+      final isAdmin = user.role == Role.familyAdmin;
+      if (user.role != Role.superAdmin && isAdmin != _asAdmin) {
+        showInfo(context, 'This number is registered as a ${isAdmin ? 'Family Admin' : 'Family Member'}');
+      }
+      widget.onSignedIn();
     } catch (e) {
       if (!mounted) return;
       // No account for this number yet: ask for the family details and create one.
@@ -122,45 +134,13 @@ class _LoginScreenState extends State<LoginScreen> {
         name: _name.text.trim(),
         email: creds.email,
         password: creds.password,
-        familyName: _newFamily ? _familyName.text.trim() : null,
-        inviteCode: _newFamily ? null : _inviteCode.text.trim(),
+        familyName: _asAdmin ? _familyName.text.trim() : null,
+        inviteCode: _asAdmin ? null : _inviteCode.text.trim(),
       ),
     );
     if (!mounted) return;
     setState(() => _busy = false);
     if (user != null) widget.onSignedIn();
-  }
-
-  /// One-tap sign in to a seeded demo account. Only built while kDemoMode is on.
-  Future<void> _demoSignIn(String email) async {
-    if (_busy) return;
-    FocusScope.of(context).unfocus();
-    setState(() {
-      _busy = true;
-      _demoEmail = email;
-    });
-    final user = await guard(context, () => repo.signIn(email: email, password: kDemoPassword));
-    if (!mounted) return;
-    setState(() {
-      _busy = false;
-      _demoEmail = null;
-    });
-    if (user != null) widget.onSignedIn();
-  }
-
-  Widget _demoButton(String label, String email) {
-    return OutlinedButton(
-      onPressed: _busy ? null : () => _demoSignIn(email),
-      style: OutlinedButton.styleFrom(
-        minimumSize: const Size(0, 36),
-        padding: const EdgeInsets.symmetric(horizontal: 14),
-        shape: const StadiumBorder(),
-        textStyle: body(12.5, weight: 600),
-      ),
-      child: _demoEmail == email
-          ? const SizedBox(width: 16, height: 16, child: ButtonSpinner(color: kMaroon))
-          : Text(label),
-    );
   }
 
   Future<void> _emailSignIn() async {
@@ -185,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final VoidCallback action;
     switch (_stage) {
       case _Stage.phone:
-        button = 'Verify & Continue';
+        button = 'Login';
         action = _verify;
       case _Stage.setup:
         button = 'Begin Your Family Story';
@@ -196,6 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return Scaffold(
       backgroundColor: kCream,
+      endDrawer: const AppDrawer(),
       bottomNavigationBar: PinnedBar(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -242,7 +223,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                const BrandEmblem(size: 72),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Long press: the email sign in used by the Hamari Virasat team.
+                    GestureDetector(
+                      onLongPress: _busy ? null : () => setState(() => _stage = _Stage.email),
+                      child: const BrandEmblem(size: 72),
+                    ),
+                    const Spacer(),
+                    Builder(
+                      builder: (context) => IconButton(
+                        tooltip: 'About, FAQ and help',
+                        icon: const Icon(Icons.menu, color: kInk),
+                        onPressed: () => Scaffold.of(context).openEndDrawer(),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 28),
                 ...switch (_stage) {
                   _Stage.phone => _phoneStage(),
@@ -271,6 +269,36 @@ class _LoginScreenState extends State<LoginScreen> {
     final ss = (_resendIn % 60).toString().padLeft(2, '0');
     return [
       ..._heading('Welcome to your legacy', "Enter your mobile number. We'll send a secure code to verify it."),
+      const FieldLabel('Login as'),
+      SizedBox(
+        width: double.infinity,
+        child: SegmentedButton<bool>(
+          segments: const [
+            ButtonSegment(value: true, label: Text('Family Admin'), icon: Icon(Icons.workspace_premium_outlined)),
+            ButtonSegment(value: false, label: Text('Family Member'), icon: Icon(Icons.people_outline)),
+          ],
+          selected: {_asAdmin},
+          showSelectedIcon: false,
+          onSelectionChanged: _busy ? null : (v) => setState(() => _asAdmin = v.first),
+          style: SegmentedButton.styleFrom(
+            backgroundColor: kSurface,
+            selectedBackgroundColor: kBlush,
+            selectedForegroundColor: kMaroon,
+            foregroundColor: kMuted,
+            side: const BorderSide(color: kLine),
+            textStyle: body(13.5, weight: 600),
+            padding: const EdgeInsets.symmetric(vertical: 14),
+          ),
+        ),
+      ),
+      const SizedBox(height: 8),
+      Text(
+        _asAdmin
+            ? 'The family admin is the one who paid. They invite the rest of the family.'
+            : 'Invited by your family admin? Log in here as a member.',
+        style: body(12.5, color: kMuted).copyWith(height: 1.4),
+      ),
+      const SizedBox(height: 22),
       const FieldLabel('Mobile number'),
       TextField(
         controller: _phone,
@@ -306,41 +334,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text('Resend code'),
                   ),
       ),
-      const SizedBox(height: 6),
       if (kDemoMode) ...[
+        const SizedBox(height: 6),
         Center(
           child: Text('Demo mode: any 6-digit code works', style: body(12, color: const Color(0xFFA89C94))),
         ),
-        const SizedBox(height: 18),
-        Center(child: Text('Try a demo account', style: body(12.5, weight: 600, color: kMuted))),
-        const SizedBox(height: 8),
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            _demoButton('Family admin', 'demo@example.com'),
-            _demoButton('Member', 'member@example.com'),
-            _demoButton('Super admin', 'super@example.com'),
-          ],
-        ),
       ],
-      const SizedBox(height: 20),
-      Center(
-        child: TextButton(
-          onPressed: _busy ? null : () => setState(() => _stage = _Stage.email),
-          style: TextButton.styleFrom(foregroundColor: kMuted, textStyle: body(12.5, weight: 500)),
-          child: const Text('Sign in with email'),
-        ),
-      ),
-      if (repo is LocalRepository)
-        Center(
-          child: Text(
-            'On-device demo: admin@demo.in, member@demo.in, super@demo.in / demo123',
-            textAlign: TextAlign.center,
-            style: body(11, color: const Color(0xFFA89C94)),
-          ),
-        ),
     ];
   }
 
@@ -402,7 +401,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   List<Widget> _setupStage() {
     return [
-      ..._heading('Set up your family', 'This number is new here. Tell us who you are and which family you belong to.'),
+      ..._heading(
+        'Set up your family',
+        _asAdmin
+            ? 'This number is new here. Tell us who you are and name your family.'
+            : 'This number is new here. Tell us who you are and enter the invite code from your family admin.',
+      ),
       const FieldLabel('Your name'),
       TextFormField(
         controller: _name,
@@ -413,16 +417,8 @@ class _LoginScreenState extends State<LoginScreen> {
         validator: (v) => _required(v, 'Enter your name'),
       ),
       const SizedBox(height: 22),
-      const FieldLabel('Your family'),
-      Row(
-        children: [
-          Expanded(child: _choice('Start a new family', Icons.home_outlined, _newFamily, true)),
-          const SizedBox(width: 12),
-          Expanded(child: _choice('Join with invite code', Icons.key_outlined, !_newFamily, false)),
-        ],
-      ),
-      const SizedBox(height: 16),
-      if (_newFamily)
+      FieldLabel(_asAdmin ? 'Your family' : 'Join your family'),
+      if (_asAdmin)
         TextFormField(
           key: const ValueKey('family-name'),
           controller: _familyName,
@@ -452,39 +448,11 @@ class _LoginScreenState extends State<LoginScreen> {
     ];
   }
 
-  Widget _choice(String label, IconData icon, bool selected, bool value) {
-    return Material(
-      color: selected ? kBlush : kSurface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: selected ? kMaroon : kLine, width: selected ? 1.6 : 1),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () => setState(() => _newFamily = value),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
-          child: Column(
-            children: [
-              Icon(icon, color: selected ? kMaroon : kMuted, size: 22),
-              const SizedBox(height: 8),
-              Text(
-                label,
-                textAlign: TextAlign.center,
-                style: body(12.5, weight: 600, color: selected ? kMaroon : kInk),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   // ---- email sign in, for accounts made before phone login ----
 
   List<Widget> _emailStage() {
     return [
-      ..._heading('Sign in with email', 'For accounts that were created with an email address.'),
+      ..._heading('Sign in with email', 'For the Hamari Virasat team and accounts created with an email address.'),
       const FieldLabel('Email'),
       TextFormField(
         controller: _email,

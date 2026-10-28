@@ -5,13 +5,13 @@ import '../data/repository.dart';
 import '../theme.dart';
 import 'info_screens.dart';
 import 'memories_screens.dart';
-import 'recipes_screen.dart';
 import 'ritual_form_screen.dart';
 import 'rituals_screen.dart';
 import 'site_ui.dart';
 import 'ui.dart';
 
-/// Home: greeting, the legacy banner, four quick tiles and the latest memories.
+/// Home: greeting, the legacy banner, four quick tiles (Rituals, Festivals, Memories, Family)
+/// and the latest memories. Recipes and photos live inside rituals and festivals.
 class HomeTab extends StatefulWidget {
   final AppUser user;
   final VoidCallback onCapture;
@@ -100,9 +100,15 @@ class _HomeTabState extends State<HomeTab> {
         padding: const EdgeInsets.only(top: 18, bottom: 28),
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.only(left: 12, right: 24),
             child: Row(
               children: [
+                IconButton(
+                  tooltip: 'Menu: About, FAQ and help',
+                  icon: const Icon(Icons.menu, color: kInk),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
+                const SizedBox(width: 4),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,22 +149,6 @@ class _HomeTabState extends State<HomeTab> {
               children: [
                 Row(
                   children: [
-                    Expanded(child: _tile(Icons.add_photo_alternate_outlined, 'Add Memory', widget.onCapture)),
-                    const SizedBox(width: 12),
-                    Expanded(child: _tile(Icons.people_outline, 'Family', widget.onOpenFamily)),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _tile(
-                        Icons.soup_kitchen_outlined,
-                        'Recipes',
-                        () => _push(RecipesScreen(user: widget.user)),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
                     Expanded(
                       child: _tile(
                         Icons.temple_hindu_outlined,
@@ -166,6 +156,28 @@ class _HomeTabState extends State<HomeTab> {
                         () => _push(RitualsScreen(user: widget.user)),
                       ),
                     ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _tile(
+                        Icons.celebration_outlined,
+                        'Festivals',
+                        () => _push(RitualsScreen(user: widget.user, festivals: true)),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _tile(
+                        Icons.photo_library_outlined,
+                        'Memories',
+                        () => _push(MemoriesScreen(user: widget.user, title: 'All memories')),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(child: _tile(Icons.people_outline, 'Family', widget.onOpenFamily)),
                   ],
                 ),
               ],

@@ -21,8 +21,9 @@ class RitualFormScreen extends StatefulWidget {
   final AppUser user;
   final Ritual? existing;
   final String? templateKey;
+  final String? initialCategory; // e.g. "Festival" when added from the Festivals page
 
-  const RitualFormScreen({super.key, required this.user, this.existing, this.templateKey});
+  const RitualFormScreen({super.key, required this.user, this.existing, this.templateKey, this.initialCategory});
 
   @override
   State<RitualFormScreen> createState() => _RitualFormScreenState();
@@ -104,7 +105,7 @@ class _RitualFormScreenState extends State<RitualFormScreen> {
     ]) {
       c.addListener(_markDirty);
     }
-    _category = (e == null || e.category.isEmpty) ? template?.stage : e.category;
+    _category = (e == null || e.category.isEmpty) ? (template?.stage ?? widget.initialCategory) : e.category;
     _phase = e?.phase ?? '';
     _recipes = List.of(e?.recipes ?? const []);
     _audioPaths = List.of(e?.audioPaths ?? const []);

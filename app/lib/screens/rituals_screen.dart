@@ -11,10 +11,12 @@ import 'site_ui.dart';
 import 'ui.dart';
 
 /// The Rituals chapter: every ritual the family has recorded, grouped by category.
+/// With [festivals] on it is the Festivals chapter instead, showing festivals only.
 class RitualsScreen extends StatefulWidget {
   final AppUser user;
   final String familyName;
-  const RitualsScreen({super.key, required this.user, this.familyName = ''});
+  final bool festivals;
+  const RitualsScreen({super.key, required this.user, this.familyName = '', this.festivals = false});
 
   @override
   State<RitualsScreen> createState() => _RitualsScreenState();
@@ -50,7 +52,7 @@ class _RitualsScreenState extends State<RitualsScreen> {
     }
     if (!mounted) return;
     setState(() {
-      _rituals = rituals ?? _rituals;
+      _rituals = rituals?.where((r) => isFestival(r.category, r.templateKey) == widget.festivals).toList() ?? _rituals;
       _orders = orders;
       _loading = false;
     });
@@ -67,14 +69,14 @@ class _RitualsScreenState extends State<RitualsScreen> {
     }
     return [
       for (final key in paid)
-        if (templateFor(key) != null) templateFor(key)!,
+        if (templateFor(key) case final t? when (t.stage == kFestivalStage) == widget.festivals) t,
     ];
   }
 
   Future<void> _openCatalogue() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => CatalogueScreen(user: widget.user)),
+      MaterialPageRoute(builder: (_) => CatalogueScreen(user: widget.user, festivals: widget.festivals)),
     );
     if (mounted) await _load();
   }
@@ -87,6 +89,9 @@ class _RitualsScreenState extends State<RitualsScreen> {
     if (mounted) await _load();
   }
 
+  /// "ritual" or "festival", for the copy on this page.
+  String get _noun => widget.festivals ? 'festival' : 'ritual';
+
   Widget _documentCard() {
     return MaroonCard(
       child: Column(
@@ -94,17 +99,17 @@ class _RitualsScreenState extends State<RitualsScreen> {
         children: [
           Text('RITI RIWAJ', style: eyebrow()),
           const SizedBox(height: 8),
-          Text('Document a new ritual', style: display(21, color: Colors.white)),
+          Text('Document a new $_noun', style: display(21, color: Colors.white)),
           const SizedBox(height: 6),
           Text(
-            'Choose from our collection: ₹299 per ritual, documented in full as a PDF heirloom.',
+            'Choose from our collection: ₹299 per $_noun, documented in full as a PDF heirloom.',
             style: body(13.5, color: Colors.white.withValues(alpha: 0.92)).copyWith(height: 1.4),
           ),
           const SizedBox(height: 14),
           FilledButton(
             onPressed: _openCatalogue,
             style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: kMaroon),
-            child: const Text('Browse rituals'),
+            child: Text(widget.festivals ? 'Browse festivals' : 'Browse rituals'),
           ),
         ],
       ),
@@ -114,7 +119,9 @@ class _RitualsScreenState extends State<RitualsScreen> {
   Future<void> _add() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => RitualFormScreen(user: widget.user)),
+      MaterialPageRoute(
+        builder: (_) => RitualFormScreen(user: widget.user, initialCategory: widget.festivals ? kFestivalStage : null),
+      ),
     );
     if (mounted) await _load();
   }
@@ -179,12 +186,12 @@ class _RitualsScreenState extends State<RitualsScreen> {
           child: EmptyState(
             icon: Icons.temple_hindu_outlined,
             title: 'Your traditions start here',
-            line: 'Record the first ritual: what is needed, the steps, who does what, '
+            line: 'Record a $_noun: what is needed, the steps, who does what, '
                 'the food that is cooked and the songs that are sung.',
             action: FilledButton.icon(
               onPressed: _add,
               icon: const Icon(Icons.add),
-              label: const Text('Add your first ritual'),
+              label: Text('Add $_noun'),
             ),
           ),
         ),
@@ -198,7 +205,7 @@ class _RitualsScreenState extends State<RitualsScreen> {
             textInputAction: TextInputAction.search,
             onChanged: (v) => setState(() => _query = v),
             decoration: InputDecoration(
-              hintText: 'Search rituals, categories or phases',
+              hintText: 'Search ${_noun}s, categories or phases',
               prefixIcon: const Icon(Icons.search, size: 22),
               suffixIcon: _query.isEmpty
                   ? null
@@ -219,7 +226,7 @@ class _RitualsScreenState extends State<RitualsScreen> {
           EmptyState(
             icon: Icons.search_off_outlined,
             title: 'Nothing found',
-            line: 'No ritual matches "${_query.trim()}". Try another word.',
+            line: 'No $_noun matches "${_query.trim()}". Try another word.',
           ),
         );
       }
@@ -254,9 +261,9 @@ class _RitualsScreenState extends State<RitualsScreen> {
         child: Column(
           children: [
             ScreenHeader(
-              title: 'Rituals',
+              title: widget.festivals ? 'Festivals' : 'Rituals',
               back: true,
-              trailing: IconButton(tooltip: 'Add ritual', icon: const Icon(Icons.add, color: kMaroon), onPressed: _add),
+              trailing: IconButton(tooltip: 'Add $_noun', icon: const Icon(Icons.add, color: kMaroon), onPressed: _add),
             ),
             Expanded(
               child: RefreshIndicator(

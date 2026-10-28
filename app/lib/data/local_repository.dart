@@ -21,8 +21,51 @@ class LocalRepository implements Repository {
       await _save();
     } else {
       _db = Map<String, dynamic>.from(jsonDecode(raw) as Map);
+      if (_listAllAccounts()) await _save();
     }
   }
+
+  /// Accounts made before members were linked to the family list: put them on it.
+  bool _listAllAccounts() {
+    final members = _rows('members');
+    var changed = false;
+    for (final u in _rows('users')) {
+      final familyId = u['family_id'] as String?;
+      if (familyId == null || members.any((m) => m['id'] == u['id'])) continue;
+      changed = true;
+      // The admin may already have typed this person in: take over that entry.
+      final name = ((u['full_name'] ?? '') as String).trim().toLowerCase();
+      final typed = members.indexWhere((m) =>
+          m['family_id'] == familyId &&
+          !_rows('users').any((a) => a['id'] == m['id']) &&
+          (m['name'] as String).trim().toLowerCase() == name);
+      if (typed >= 0) {
+        members[typed] = {...members[typed], 'id': u['id']};
+        continue;
+      }
+      members.add(FamilyMember(
+        id: u['id'] as String,
+        familyId: familyId,
+        name: (u['full_name'] ?? '') as String,
+        phone: _phoneOf((u['email'] ?? '') as String),
+      ).toJson());
+    }
+    if (changed) _put('members', members);
+    return changed;
+  }
+
+  /// The phone number behind a phone login, which signs in as p<digits>@example.com.
+  static String _phoneOf(String email) =>
+      RegExp(r'^p(\d{10})@example\.com$').firstMatch(email)?.group(1) ?? '';
+
+  static String _last10(String phone) {
+    final d = phone.replaceAll(RegExp(r'\D'), '');
+    return d.length > 10 ? d.substring(d.length - 10) : d;
+  }
+
+  Plan _planOf(String familyId) =>
+      _rows('families').where((f) => f['id'] == familyId).map(Family.fromJson).firstOrNull?.plan ??
+      Plan.basic;
 
   Future<void> _save() => _prefs.setString(_key, jsonEncode(_db));
 
@@ -141,8 +184,32 @@ class LocalRepository implements Repository {
 
     final user =
         AppUser(id: newId(), name: name.trim(), email: e, role: role, familyId: familyId);
+
+    // Everyone who joins is on the family list. A name the admin already added with this
+    // phone number becomes theirs; otherwise they take a new place, if the plan has one.
+    final members = _rows('members');
+    final accountIds = users.map((u) => u['id']).toSet();
+    final phone = _phoneOf(e);
+    final claim = phone.isEmpty
+        ? -1
+        : members.indexWhere((m) =>
+            m['family_id'] == familyId &&
+            !accountIds.contains(m['id']) &&
+            _last10((m['phone'] ?? '') as String) == phone);
+    if (claim >= 0) {
+      members[claim] = {...members[claim], 'id': user.id, 'phone': phone};
+    } else {
+      final plan = _planOf(familyId);
+      if (members.where((m) => m['family_id'] == familyId).length >= plan.memberLimit) {
+        throw StateError(
+            "This family's ${plan.label} plan is full (${plan.memberLimit} members). Ask your family admin to upgrade.");
+      }
+      members.add(FamilyMember(id: user.id, familyId: familyId, name: user.name, phone: phone).toJson());
+    }
+
     users.add({...user.toJson(), 'password': password});
     _put('users', users);
+    _put('members', members);
     _db['session'] = user.id;
     await _save();
     return user;
@@ -206,8 +273,7 @@ class LocalRepository implements Repository {
     final members = _rows('members');
     final i = members.indexWhere((m) => m['id'] == member.id && m['family_id'] == u.familyId);
     if (i < 0) {
-      final family = _rows('families').where((f) => f['id'] == u.familyId).map(Family.fromJson).firstOrNull;
-      final limit = (family?.plan ?? Plan.basic).memberLimit;
+      final limit = _planOf(u.familyId!).memberLimit;
       if (members.where((m) => m['family_id'] == u.familyId).length >= limit) {
         throw StateError('Your plan allows up to $limit members');
       }
@@ -224,9 +290,16 @@ class LocalRepository implements Repository {
   @override
   Future<void> deleteMember(String id) async {
     final u = _requireFamilyAdmin();
+    final users = _rows('users');
+    final account = users.where((a) => a['id'] == id && a['family_id'] == u.familyId).firstOrNull;
+    if (account != null && roleFromString(account['role'] as String?) == Role.familyAdmin) {
+      throw StateError('The family admin cannot be removed');
+    }
     final members = _rows('members')
       ..removeWhere((m) => m['id'] == id && m['family_id'] == u.familyId);
     _put('members', members);
+    // A member who joined loses the account too, so the number can join a family afresh.
+    if (account != null) _put('users', users..remove(account));
     await _save();
   }
 
@@ -501,9 +574,9 @@ class LocalRepository implements Repository {
         },
       ],
       'members': [
-        const FamilyMember(id: 'm1', familyId: fam, name: 'Ramesh Mishra').toJson(),
+        const FamilyMember(id: 'u_admin', familyId: fam, name: 'Ramesh Mishra').toJson(),
         const FamilyMember(id: 'm2', familyId: fam, name: 'Sushila Mishra').toJson(),
-        const FamilyMember(id: 'm3', familyId: fam, name: 'Anita Mishra').toJson(),
+        const FamilyMember(id: 'u_member', familyId: fam, name: 'Anita Mishra').toJson(),
         const FamilyMember(id: 'm4', familyId: fam, name: 'Suresh Tiwari').toJson(),
       ],
       'categories': [

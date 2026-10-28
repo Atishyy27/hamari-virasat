@@ -143,7 +143,8 @@ class _FamilyScreenState extends State<FamilyScreen> {
   Future<void> _deleteMember(FamilyMember m) async {
     final ok = await confirm(
       context,
-      '${m.name} will be removed from the family list.',
+      '${m.name} will be removed from the family list. If they joined with the invite code, '
+          'they lose access to the family too.',
       title: 'Remove this member?',
       yes: 'Remove',
     );
@@ -170,11 +171,12 @@ class _FamilyScreenState extends State<FamilyScreen> {
               title: const Text('Edit details'),
               onTap: () => Navigator.pop(c, 'edit'),
             ),
-            ListTile(
-              leading: const Icon(Icons.person_remove_outlined),
-              title: const Text('Remove from family'),
-              onTap: () => Navigator.pop(c, 'delete'),
-            ),
+            if (m.id != widget.user.id)
+              ListTile(
+                leading: const Icon(Icons.person_remove_outlined),
+                title: const Text('Remove from family'),
+                onTap: () => Navigator.pop(c, 'delete'),
+              ),
             const SizedBox(height: 8),
           ],
         ),
@@ -309,7 +311,15 @@ class _FamilyScreenState extends State<FamilyScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 4),
               child: Text(
-                'View only. The family admin adds and edits members.',
+                'View only. The family admin adds and removes members.',
+                style: body(12.5, color: kMuted),
+              ),
+            ),
+          if (_isAdmin)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 4),
+              child: Text(
+                'Relatives who join with the invite code appear here on their own.',
                 style: body(12.5, color: kMuted),
               ),
             ),
@@ -374,7 +384,7 @@ class _FamilyScreenState extends State<FamilyScreen> {
   }
 
   Widget _memberCard(FamilyMember m) {
-    final you = m.name.trim().toLowerCase() == widget.user.name.trim().toLowerCase();
+    final you = m.id == widget.user.id;
     return SoftCard(
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.fromLTRB(10, 18, 10, 16),

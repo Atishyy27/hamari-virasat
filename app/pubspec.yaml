@@ -22,6 +22,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # analysis_options.yaml includes package:flutter_lints/flutter.yaml, so the
+  # package has to be here or `flutter analyze` fails to resolve the include.
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

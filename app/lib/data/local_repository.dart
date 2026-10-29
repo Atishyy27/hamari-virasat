@@ -54,7 +54,7 @@ class LocalRepository implements Repository {
     return changed;
   }
 
-  /// The phone number behind a phone login, which signs in as p<digits>@example.com.
+  /// The phone number behind a phone login, which signs in as `p<digits>@example.com`.
   static String _phoneOf(String email) =>
       RegExp(r'^p(\d{10})@example\.com$').firstMatch(email)?.group(1) ?? '';
 

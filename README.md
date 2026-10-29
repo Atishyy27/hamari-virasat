@@ -46,6 +46,22 @@ Notes for the app's Supabase code:
 
 Run `scripts/build-apk.sh`. Without Supabase values the app runs on local on-device data, which is enough for a demo.
 
+## Continuous integration and releases
+
+`.github/workflows/ci.yml` does two things.
+
+- On every push to `main` and every pull request it runs `flutter analyze`, and `flutter test` once a `test/` directory exists. This is the check that keeps `main` from breaking.
+- When a version tag is pushed it builds the release APK and attaches it to a GitHub Release. Cut one with:
+
+  ```
+  git tag v1.0.0
+  git push origin v1.0.0
+  ```
+
+  The build reads the Supabase keys from two repository secrets, `SUPABASE_URL` and `SUPABASE_ANON_KEY` (Settings, Secrets and variables, Actions). Without them the released APK falls back to on-device demo data. The anon key is the public key, safe to store here; the service-role key and database password are not and must never be added.
+
+The APK is signed with the debug key, which installs fine as a sideload but is not Play Store ready. Add a real upload keystore before publishing to the store.
+
 ## Unverified
 
 - `schema.sql` has not been run against a Supabase project. The first run is the test.
